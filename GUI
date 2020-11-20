@@ -1,3 +1,5 @@
+from tkinter import *
+from tkinter import messagebox
 
 def mainMenu():
     window = Tk()
@@ -10,7 +12,7 @@ def mainMenu():
         window.destroy()
 
 
-    betalButton = Button(window, text="Plot", command=clicked, background="black", foreground="black", height=7,
+    betalButton = Button(window, text="Plot", command=clicked, background="white", foreground="black", height=7,
                          width=18)
     betalButton.place(relx=0.5,rely=0.35,anchor=CENTER)
 
@@ -21,3 +23,4 @@ def mainMenu():
     labelFormel.place(relx=0.5, rely=0.77, anchor=CENTER)
 
     window.mainloop()
+mainMenu()
