@@ -1,0 +1,23 @@
+
+def mainMenu():
+    window = Tk()
+    window.geometry("400x200")
+    window.title("Menu")
+
+    def clicked():
+        formelStr = str(formelEntry.get())
+        plot(formelStr)
+        window.destroy()
+
+
+    betalButton = Button(window, text="Plot", command=clicked, background="black", foreground="black", height=7,
+                         width=18)
+    betalButton.place(relx=0.5,rely=0.35,anchor=CENTER)
+
+    formelEntry = Entry(window, width=16)
+    formelEntry.place(relx=0.5, rely=0.9, anchor=CENTER)
+
+    labelFormel = Label(window, text="Indtast værdierne")
+    labelFormel.place(relx=0.5, rely=0.77, anchor=CENTER)
+
+    window.mainloop()
