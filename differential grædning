@@ -1,0 +1,180 @@
+import matplotlib.pyplot as plt
+import numpy as np
+from tkinter import *
+
+
+
+def mainMenu():
+    window = Tk()
+    window.geometry("400x200")
+    window.title("Menu")
+
+    def beregn():
+        if x_et_function.get() and x_to_function.get() and linspace_start_entry.get() and linspace_slut_entry.get():
+            x = np.linspace(int(linspace_start_entry.get()), int(linspace_slut_entry.get()), 100)
+        else:
+            error_text = Label(window, text="ERROR: Skriv venligst flere informationer.")
+            error_text.place(relx=0.5, rely=0.75, anchor=CENTER)
+            error_text.after(5000, lambda: error_text.destroy())
+
+        # fjerdegrads
+        if a_function.get() and b_function.get() and c_function.get() and d_function.get() and e_function.get():
+            y = int(a_function.get()) * x ** 4 + int(b_function.get()) * x ** 3 + int(c_function.get()) * x ** 2 + int(
+                d_function.get()) * x + int(e_function.get())
+            plt.plot(x, y)
+            plt.show()
+
+
+        # tredjegrads
+        elif a_function.get() and b_function.get() and c_function.get() and d_function.get():
+            y = int(a_function.get()) * x ** 3 + int(b_function.get()) * x ** 2 + int(c_function.get()) + int(
+                d_function.get())
+
+            x_et = int(x_et_function.get())
+            x_to = int(x_to_function.get())
+            last_slope = 0
+            print("x1: ", x_et, "x2: ", x_to)
+            for i in range(500):
+                x_to = x_to - x_et
+                print("før lort x1: ", x_et, "x2: ", x_to)
+                y_et = int(a_function.get()) * x_et ** 3 + int(b_function.get()) * x_et ** 2 + int(
+                    c_function.get()) * x_et + int(d_function.get())
+                y_to = int(a_function.get()) * x_to ** 3 + int(b_function.get()) * x_to ** 2 + int(
+                    c_function.get()) * x_et + int(d_function.get())
+
+                slope_one = float((y_to - y_et) / (x_to - x_et))
+                plt.axline((x_et, y_et), slope=slope_one, color="red", label="linje 2")
+
+                x_to = x_to
+                x_to = x_to / 2
+                print("x1: ", x_et, "x2: ", x_to, "slope: ", slope_one)
+                plt.plot(x, y, label="linje 1")
+                plt.show()
+                if abs(abs(slope_one) - abs(last_slope)) < 0.001:
+                    print(i)
+                    break
+                else:
+                    last_slope = slope_one
+            else:
+                print("Donezo",)
+
+
+
+        # andengradse
+        elif a_function.get() and b_function.get() and c_function.get():
+            y = int(a_function.get()) * x ** 2 + int(b_function.get()) * x + int(c_function.get())
+
+            x_et = int(x_et_function.get())
+            x_to = int(x_to_function.get())
+            for i in range(50):
+
+                x_to = x_et + x_to
+                y_et = int(a_function.get()) * x_et ** 2 + int(b_function.get()) * x_et + int(c_function.get())
+                y_to = int(a_function.get()) * x_to ** 2 + int(b_function.get()) * x_to + int(c_function.get())
+
+                slope_one = (y_to - y_et) / (x_to - x_et)
+                plt.axline((x_et, y_et), slope=slope_one, color="red", label="linje 2")
+
+                x_to = x_to - x_et
+                x_to = x_to / 2
+                print(y_et, y_to, x_et, x_to, slope_one)
+                plt.plot(x, y, label="linje 1")
+                plt.show()
+                if abs(abs(slope_one) - abs(last_slope)) < 0.001:
+                    print(i)
+                    break
+                else:
+                    last_slope = slope_one
+            else:
+                print("Donezo")
+
+            # plt.show()
+
+            # differentialregning(2)
+        # førstegrads
+        elif a_function.get() and b_function.get():
+            y = int(a_function.get()) * x + int(b_function.get())
+            plt.plot(x, y)
+            plt.show()
+            differentialregning(1)
+        else:
+            error_text = Label(window, text="ERROR: Skriv venligst flere informationer.")
+            error_text.place(relx=0.5, rely=0.75, anchor=CENTER)
+            error_text.after(5000, lambda: error_text.destroy())
+
+    def differentialregning(Gradtype):
+        print("hej")
+
+        x_et = int(input())
+        x_to = int(input())
+        while x_to >= 0.1:
+            if Gradtype == 2:
+                y_et = int(a_function.get()) * x_et ** 2 + int(b_function.get()) * x_et + int(c_function.get())
+                y_to = int(a_function.get()) * x_to ** 2 + int(b_function.get()) * x_to + int(c_function.get())
+            print(y_et, y_to)
+            slope = (y_et - y_to) / (x_et - x_to)
+            plt.axline((x_et, y_et), slope=(y_to - y_et) / (x_to - x_et), color="red")
+            # plt.plot([x_et,x_to], [y_et,y_to], label="linje 2")
+
+            x_to / 2
+        else:
+            print("Donezo")
+            plt.show()
+
+    betalButton = Button(window, text="Plot", command=beregn, background="black", foreground="red", height=1,
+                         width=18)
+    betalButton.place(relx=0.5, rely=0.87, anchor=CENTER)
+
+    # a, b, c, d og e placering
+    # a:
+    a_function = Entry(window, width=4)
+    a_function.place(relx=0.1, rely=0.2, anchor=CENTER)
+    a_label = Label(window, text="a")
+    a_label.place(relx=0.05, rely=0.2, anchor=CENTER)
+
+    # b:
+    b_function = Entry(window, width=4)
+    b_function.place(relx=0.1, rely=0.3, anchor=CENTER)
+    b_label = Label(window, text="b")
+    b_label.place(relx=0.05, rely=0.3, anchor=CENTER)
+    # c:
+    c_function = Entry(window, width=4)
+    c_function.place(relx=0.1, rely=0.4, anchor=CENTER)
+    c_label = Label(window, text="c")
+    c_label.place(relx=0.05, rely=0.4, anchor=CENTER)
+    # d:
+    d_function = Entry(window, width=4)
+    d_function.place(relx=0.1, rely=0.5, anchor=CENTER)
+    d_label = Label(window, text="d")
+    d_label.place(relx=0.05, rely=0.5, anchor=CENTER)
+    # e:
+    e_function = Entry(window, width=4)
+    e_function.place(relx=0.1, rely=0.6, anchor=CENTER)
+    e_label = Label(window, text="e")
+    e_label.place(relx=0.05, rely=0.6, anchor=CENTER)
+
+    # X_et
+    x_et_function = Entry(window, width=4)
+    x_et_function.place(relx=0.575, rely=0.3, anchor=CENTER)
+    x_et_label = Label(window, text="Hvad er din x1")
+    x_et_label.place(relx=0.425, rely=0.3, anchor=CENTER)
+    # X_to
+    x_to_function = Entry(window, width=4)
+    x_to_function.place(relx=0.575, rely=0.5, anchor=CENTER)
+    x_to_label = Label(window, text="Hvad er din Delta_x")
+    x_to_label.place(relx=0.4, rely=0.5, anchor=CENTER)
+
+    linspace_start_entry = Entry(window, width=4)
+    linspace_start_entry.place(relx=0.9, rely=0.25, anchor=CENTER)
+    linspace_start_text = Label(window, text="Hvor skal din\ngraf starte?")
+    linspace_start_text.place(relx=0.75, rely=0.25, anchor=CENTER)
+
+    linspace_slut_entry = Entry(window, width=4)
+    linspace_slut_entry.place(relx=0.9, rely=0.50, anchor=CENTER)
+    linspace_slut_text = Label(window, text="Hvor skal din\ngraf starte?")
+    linspace_slut_text.place(relx=0.75, rely=0.5, anchor=CENTER)
+
+    window.mainloop()
+
+
+mainMenu()
