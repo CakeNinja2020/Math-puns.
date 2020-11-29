@@ -21,11 +21,16 @@ def mainMenu():
         if a_function.get() and b_function.get() and c_function.get() and d_function.get() and e_function.get():
             y = int(a_function.get()) * x ** 4 + int(b_function.get()) * x ** 3 + int(c_function.get()) * x ** 2 + int(
                 d_function.get()) * x + int(e_function.get())
+
             x_et = int(x_et_function.get())
             x_to = int(x_to_function.get())
             last_slope_fjerde = 0
             print("x1: ", x_et, "x2: ", x_to)
             for i in range(500):
+                plt.axvline(color="grey")
+                plt.axhline(color="grey")
+                plt.xlabel("x")
+                plt.ylabel("y")
                 x_to = x_et+x_to
                 print("før lort x1: ", x_et, "x2: ", x_to)
                 y_et = int(a_function.get()) * x_et ** 4 + int(b_function.get()) * x_et ** 3 + int(
@@ -41,9 +46,9 @@ def mainMenu():
                 plt.plot(x, y, label="linje 1")
                 plt.show()
                 if abs(abs(slope_one) - abs(last_slope_fjerde)) < 0.001:
-                    print("Det tog ", i, " omgange")
-                    reslutat_fjerde = Label(window, text=("funktionen for din tanget er:\n" , slope_one,"x + (", ))
-                    reslutat_fjerde.place(relx=0.8, rely=0.9, ANCHOR=CENTER)
+                    print("Det tog ", i, " omgange og  hældningen fra din tangent er: ", slope_one)
+                    #reslutat_fjerde = Label(window, text=("funktionen for din tanget er:\n" , slope_one,"x + (", ))
+                    #reslutat_fjerde.place(relx=0.8, rely=0.9, ANCHOR=CENTER)
                     break
                 else:
                     last_slope_fjerde = slope_one
@@ -61,6 +66,10 @@ def mainMenu():
             last_slope_tredje = 0
             print("x1: ", x_et, "x2: ", x_to)
             for i in range(500):
+                plt.axvline(color="grey")
+                plt.axhline(color="grey")
+                plt.xlabel("x")
+                plt.ylabel("y")
                 x_to = x_to - x_et
                 print("før lort x1: ", x_et, "x2: ", x_to)
                 y_et = int(a_function.get()) * x_et ** 3 + int(b_function.get()) * x_et ** 2 + int(
@@ -74,7 +83,6 @@ def mainMenu():
                 x_to = x_to / 2
                 print("x1: ", x_et, "x2: ", x_to, "slope: ", slope_one)
                 plt.plot(x, y, label="linje 1")
-                plt.axvline(color="grey")
                 plt.show()
                 if abs(abs(slope_one) - abs(last_slope_tredje)) < 0.001:
                     print(i)
@@ -82,7 +90,7 @@ def mainMenu():
                 else:
                     last_slope_tredje = slope_one
             else:
-                print("Donezo")
+                print("Det tog ", i, " omgange og  hældningen fra din tangent er: ", slope_one)
 
 
 
@@ -94,6 +102,10 @@ def mainMenu():
             x_to = int(x_to_function.get())
             last_slope_anden = 0
             for i in range(50):
+                plt.axvline(color="grey")
+                plt.axhline(color="grey")
+                plt.xlabel("x")
+                plt.ylabel("y")
                 x_to = x_et + x_to
                 y_et = int(a_function.get()) * x_et ** 2 + int(b_function.get()) * x_et + int(c_function.get())
                 y_to = int(a_function.get()) * x_to ** 2 + int(b_function.get()) * x_to + int(c_function.get())
@@ -111,9 +123,14 @@ def mainMenu():
                     last_slope_anden = slope_one
             else:
                 print("Donezo")
+                print("Det tog ", i, " omgange og  hældningen fra din tangent er: ", slope_one)
 
         # førstegrads
         elif a_function.get() and b_function.get():
+
+            plt.axvline(color="grey")
+            plt.axhline(color="grey")
+
             y = int(a_function.get()) * x + int(b_function.get())
             plt.plot(x, y)
             plt.show()
