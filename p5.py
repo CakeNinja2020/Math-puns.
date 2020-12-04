@@ -1,5 +1,5 @@
 import math
-def clamp_norm(v, n_max):
+def limit(v, n_max):
    vx, vy = v
    n = math.sqrt(vx**2 + vy**2)
    try:
